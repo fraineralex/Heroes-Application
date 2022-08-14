@@ -1,0 +1,59 @@
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Heroes App</h1>
+      <p class="lead text-muted">Una aplicacion hecha por superheroes para
+        superheroes</p>
+      <p>
+        {{#if isAuthenticated}}
+        <a href="/create-heroes" class="btn btn-primary my-2">Crear nuevo super
+          Heroe</a>
+        <a href="/create-races" class="btn btn-secondary my-2">Crear nueva raza</a>
+        {{/if}}
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+
+      {{#if hasHeroes}}
+
+        {{#each heroes as |hero|}}
+
+          <div class="card col-md-3">
+            <img src="{{hero.imagePath}}" class="card-img-top img-size" alt="{{hero.name}}">
+            <div class="card-body">
+              <h5 class="card-title">{{hero.name}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{hero.race.dataValues.name}}</h6>
+              <p class="card-text">{{hero.description}}</p>
+
+               {{#if ../isAuthenticated}}
+              <a
+                href="/edit-heroes/{{hero.id}}?edit=true"
+                class="btn btn-warning"
+              >Editar</a>
+
+              <form class="form-inline form-delete" action="/delete-heroes" method="post">
+                <input type="hidden" name="heroesId" value="{{hero.id}}" />
+                <button type="submit" class="btn btn-danger delete-heroes">Eliminar</button>
+
+              </form>
+              {{/if}}
+            </div>
+          </div>
+
+        {{/each}}
+
+      {{else}}
+
+        <h1>no hay heroes creados</h1>
+
+      {{/if}}
+
+    </div>
+  </div>
+</div>

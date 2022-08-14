@@ -1,0 +1,49 @@
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Heroes App</h1>
+      <p class="lead text-muted">Una aplicacion hecha por superheroes para
+        superheroes</p>
+      <p>
+        <a href="/create-races" class="btn btn-secondary my-2">Crear nueva raza</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+
+      {{#if hasRaces}}
+
+        {{#each races as |race|}}
+
+          <div class="card col-md-3">
+            <div class="card-body">
+              <h5 class="card-title">{{race.name}}</h5>
+
+              <a
+                href="/edit-races/{{race.id}}?edit=true"
+                class="btn btn-warning"
+              >Editar</a>
+
+              <form class="form-inline" action="/delete-races" method="post">
+                <input type="hidden" name="racesId" value="{{race.id}}" />
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+
+              </form>
+            </div>
+          </div>
+
+        {{/each}}
+      {{else}}
+
+        <h1>no hay razas creadas</h1>
+
+      {{/if}}
+
+    </div>
+  </div>
+</div>

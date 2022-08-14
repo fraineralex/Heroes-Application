@@ -1,0 +1,78 @@
+<div class="row">
+
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+
+    {{#if hasRaces}}
+
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de heroes
+      </div>
+      <div class="card-body">
+
+        <form enctype="multipart/form-data" method="POST" action="{{#if editMode}}/edit-heroes{{else}}/create-heroes{{/if}}">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name" name="Name" value="{{#if editMode}}{{hero.name}}{{/if}}" />
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Descripcion</label>
+            <textarea
+              name="Description"
+              id="description"
+              cols="60"
+              rows="5"
+              class="form-control"
+            >{{#if editMode}}{{hero.description}}{{/if}}</textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Seleccione una imagen: </label>
+            <input class="form-control" name="ImagePath" type="file" id="formFile">
+          </div>
+
+          <div class="mb-3">
+            <label for="races" class="form-label">Raza: </label>
+            <select class="form-select" id="races" name="Races">
+              <option {{#if editMode}}{{else}}selected{{/if}}>Seleccione una opcion</option>
+
+              {{#each races as |race|}}
+
+                  {{#if (equalValue race.id ../hero.raceId )}}
+                  <option selected value="{{race.id}}">{{race.name}}</option>
+                  {{else}}
+                  <option value="{{race.id}}">{{race.name}}</option>
+                  {{/if}}
+                 
+               {{/each}}
+              
+            </select>
+          </div>
+
+         
+
+          {{#if editMode}}
+
+          <input type="hidden" name="heroId" value="{{hero.id}}">
+          
+          {{/if}}
+
+          <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+           <a href="/" type="button" class="btn btn-warning">volver atras</a>
+        </form>
+
+      </div>
+    </div>
+
+    {{else}}
+
+    <h1>No hay razas creada</h1>
+
+    {{/if}}
+
+  </div>
+  <div class="col-md-6"></div>
+
+</div>
